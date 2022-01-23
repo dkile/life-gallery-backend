@@ -52,5 +52,5 @@ jobs:
         run: aws deploy create-deployment
           --application-name life-gallery-codedeploy
           --deployment-config-name CodeDeployDefault.OneAtATime
-          --deployment-group-name deploy-group
+          --deployment-group-name life-gallery-deploy-group
           --s3-location bucket=life-gallery-deploy,bundleType=zip,key=public/life-gallery.zip
