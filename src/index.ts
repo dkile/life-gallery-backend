@@ -2,7 +2,6 @@
 import fastify, { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
-const articleBlockId = "9jtk2wrd31htcy87vbw77dot";
 const PORT = process.env.PORT || "3000";
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
   logger: { level: "info", file: "./server.log" }
@@ -14,9 +13,9 @@ server.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
 });
 
 server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
-  console.log("------------------------------------------------------------------");
-  console.log(request.body);
-  console.log("------------------------------------------------------------------");
+  server.log.info("------------------------------------------------------------------");
+  server.log.info(request.body);
+  server.log.info("------------------------------------------------------------------");
   return {
     version: "2.0",
     template: {
@@ -32,9 +31,9 @@ server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
 });
 
 server.post("/article", async (request: FastifyRequest, reply: FastifyReply) => {
-  console.log("------------------------------------------------------------------");
-  console.log(request.body);
-  console.log("------------------------------------------------------------------");
+  server.log.info("------------------------------------------------------------------");
+  server.log.info(request.body);
+  server.log.info("------------------------------------------------------------------");
   return {
     version: "2.0",
     template: {
