@@ -1,0 +1,38 @@
+### API
+POST http://localhost:3000/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "intent": {
+    "id": "dxhlv6w06npa1ik8z2hclxz5",
+    "name": "블록 이름"
+  },
+  "userRequest": {
+    "timezone": "Asia/Seoul",
+    "params": {
+      "ignoreMe": "true"
+    },
+    "block": {
+      "id": "dxhlv6w06npa1ik8z2hclxz5",
+      "name": "블록 이름"
+    },
+    "utterance": "발화 내용",
+    "lang": null,
+    "user": {
+      "id": "272997",
+      "type": "accountId",
+      "properties": {}
+    }
+  },
+  "bot": {
+    "id": "5c563b3805aaa7668df79ca5",
+    "name": "봇 이름"
+  },
+  "action": {
+    "name": "aoav1yj9dc",
+    "clientExtra": null,
+    "params": {},
+    "id": "bhurz32iyc24k4714r4d38h8",
+    "detailParams": {}
+  }
+}
