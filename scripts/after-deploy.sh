@@ -11,7 +11,7 @@ npm install
 
 LENGTH=`pm2 pid api | wc -m`
 echo $LENGTH
-if [ $LENGTH -eq 1 ] || [ $LENGTH -eq 100 ]
+if [ $LENGTH -lt 5 ] || [ $LENGTH -gt 90 ]
 then
     npm start
 else
