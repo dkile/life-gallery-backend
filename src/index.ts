@@ -28,7 +28,7 @@ server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
       quickReplies: [
         {
           action: "block",
-          message: "글귀를 입력해주세요.",
+          messageText: "글귀를 입력해주세요.",
           blockId: articleBlockId
         }
       ]
