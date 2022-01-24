@@ -14,7 +14,9 @@ server.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
 });
 
 server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
+  console.log("------------------------------------------------------------------");
   console.log(request.body);
+  console.log("------------------------------------------------------------------");
   return {
     version: "2.0",
     template: {
@@ -24,20 +26,15 @@ server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
             text: "이미지 등록이 완료되었습니다."
           }
         }
-      ],
-      quickReplies: [
-        {
-          action: "block",
-          messageText: "글귀를 입력해주세요.",
-          blockId: articleBlockId
-        }
       ]
     }
   };
 });
 
 server.post("/article", async (request: FastifyRequest, reply: FastifyReply) => {
+  console.log("------------------------------------------------------------------");
   console.log(request.body);
+  console.log("------------------------------------------------------------------");
   return {
     version: "2.0",
     template: {
