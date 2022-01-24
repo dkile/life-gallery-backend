@@ -2,10 +2,10 @@
   "name": "life-gallery-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "pm2 start --name api ts-node -- --files index.ts",
-    "develop": "ts-node-dev --files index.ts",
+    "start": "pm2 start  -i max --name api ts-node -- --files src/index.ts",
+    "develop": "ts-node-dev --files src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

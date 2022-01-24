@@ -8,5 +8,12 @@ REPOSITORY=/home/ubuntu/life-gallery-backend
 cd $REPOSITORY
 
 npm install
-pm2 kill
-npm start
+
+LENGTH=`pm2 pid api | wc -m`
+echo $LENGTH
+if [ $LENGTH -eq 1 ] || [ $LENGTH -eq 100 ]
+then
+    npm start
+else
+    pm2 reload api
+fi
