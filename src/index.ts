@@ -2,7 +2,7 @@
 import fastify, { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
-const imageBlockId = "xjjwmhw95autpthe3w3ahiqu";
+const articleBlockId = "9jtk2wrd31htcy87vbw77dot";
 const PORT = process.env.PORT || "3000";
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
   logger: { level: "info", file: "./server.log" }
@@ -29,7 +29,7 @@ server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
         {
           action: "block",
           message: "글귀를 입력해주세요.",
-          blockId: imageBlockId
+          blockId: articleBlockId
         }
       ]
     }
