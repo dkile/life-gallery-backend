@@ -12,6 +12,11 @@ server.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
   return { hello: "world" };
 });
 
+server.post("/", async (request: FastifyRequest, reply: FastifyReply) => {
+  console.log(request.body);
+  return { hello: "world" };
+});
+
 server.listen(+PORT, "0.0.0.0", (err) => {
   if (err) throw err;
 });
