@@ -26,7 +26,9 @@ server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
         {
           simpleText: {
             text: "이미지 등록이 완료되었습니다."
-          },
+          }
+        },
+        {
           basicCard: {
             title: "글귀 등록",
             thumbnail: extractImageUrl(anyBody.action.detailParams.secureimage.origin),
