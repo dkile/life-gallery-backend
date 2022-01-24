@@ -36,6 +36,22 @@ server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
   };
 });
 
+server.post("/article", async (request: FastifyRequest, reply: FastifyReply) => {
+  console.log(request.body);
+  return {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          simpleText: {
+            text: "글귀 등록이 완료되었습니다."
+          }
+        }
+      ]
+    }
+  };
+});
+
 server.listen(+PORT, "0.0.0.0", (err) => {
   if (err) throw err;
 });
