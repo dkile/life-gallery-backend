@@ -29,7 +29,7 @@ server.post("/image", async (request: FastifyRequest, reply: FastifyReply) => {
           },
           basicCard: {
             title: "글귀 등록",
-            thumbnail: extractImageUrl(anyBody.detailParams.secureimage.origin),
+            thumbnail: extractImageUrl(anyBody.action.detailParams.secureimage.origin),
             buttons: [
               {
                 label: "글귀 등록",
