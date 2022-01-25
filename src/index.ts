@@ -4,6 +4,7 @@ import { ServerType } from "./types/type";
 import registerRouter from "./routers/register";
 import imageRouter from "./routers/image";
 import fallbackRouter from "./routers/fallback";
+import db from "./decorators/db";
 
 const PORT = process.env.PORT || "3000";
 const server: ServerType = fastify({
@@ -13,6 +14,7 @@ const server: ServerType = fastify({
 server.register(registerRouter);
 server.register(imageRouter);
 server.register(fallbackRouter);
+server.register(db);
 
 server.listen(+PORT, "0.0.0.0", (err) => {
   if (err) throw err;
