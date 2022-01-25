@@ -8,20 +8,21 @@ const registerRouter = async (server: ServerType) => {
       template: {
         outputs: [
           {
-            simpleText: "작품 등록 절차를 진행합니다. 개인 정보 제공에 동의하시겠습니까?"
+            simpleText:
+              "작품 등록 절차를 진행합니다. 개인 정보 제공 동의 후 이미지 업로드 단계로 넘어갑니다. 개인 정보 제공에 동의하시겠습니까?"
           }
         ],
         quickReplies: [
           {
             label: "개인 정보 제공 동의",
             action: "block",
-            messageText: "이미지를 등록해주세요.",
+            messageText: "개인 정보 제공에 동의할게요",
             blockId: "61ee39c2bce5c65875ef3a2e"
           },
           {
             label: "개인 정보 제공 비동의",
             action: "message",
-            messageText: "작품 등록 절차를 취소합니다."
+            messageText: "개인 정보 제공에 동의하지 않아요."
           }
         ]
       }
