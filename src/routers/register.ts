@@ -3,6 +3,10 @@ import { FastifyRequest, FastifyReply } from "fastify";
 
 const registerRouter = async (server: ServerType) => {
   server.post("/register", async (req: FastifyRequest, res: FastifyReply) => {
+
+    server.log.info("---------------------------------------------------");
+    server.log.info(req.body);
+    server.log.info("---------------------------------------------------");
     res.send({
       version: "2.0",
       template: {
