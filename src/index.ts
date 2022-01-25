@@ -11,10 +11,10 @@ const server: ServerType = fastify({
   logger: { level: "info", file: "./server.log" }
 });
 
+server.register(db);
 server.register(registerRouter);
 server.register(imageRouter);
 server.register(fallbackRouter);
-server.register(db);
 
 server.listen(+PORT, "0.0.0.0", (err) => {
   if (err) throw err;
