@@ -3,6 +3,9 @@ import { FastifyRequest, FastifyReply } from "fastify";
 
 const fallbackRouter = async (server: ServerType) => {
   server.post("/fallback", async (req: FastifyRequest, res: FastifyReply) => {
+    server.log.info("---------------------------------------------------");
+    server.log.info(req.body);
+    server.log.info("---------------------------------------------------");
     res.send({
       version: "2.0",
       template: {
