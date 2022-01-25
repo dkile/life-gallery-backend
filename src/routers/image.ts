@@ -1,9 +1,10 @@
 import { ServerType, imageRequestBody } from "../types/type";
-import { FastifyRequest, FastifyReply } from "fastify";
+import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
 import { findUserByKakaoId, saveUser } from "../service/user";
 import { User } from "../entity/user";
+import fp from "fastify-plugin";
 
-const imageRouter = async (server: ServerType) => {
+const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.post("/image", async (req: FastifyRequest<any>, res: FastifyReply) => {
     const requestBody: imageRequestBody = req.body;
 
@@ -33,6 +34,6 @@ const imageRouter = async (server: ServerType) => {
       }
     });
   });
-};
+});
 
 export default imageRouter;

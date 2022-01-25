@@ -1,7 +1,8 @@
 import { ServerType } from "../types/type";
-import { FastifyRequest, FastifyReply } from "fastify";
+import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
+import fp from "fastify-plugin";
 
-const fallbackRouter = async (server: ServerType) => {
+const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.post("/fallback", async (req: FastifyRequest, res: FastifyReply) => {
     server.log.info("---------------------------------------------------");
     server.log.info(req.body);
@@ -17,6 +18,6 @@ const fallbackRouter = async (server: ServerType) => {
       }
     });
   });
-};
+});
 
 export default fallbackRouter;
