@@ -28,7 +28,7 @@ export class Post {
   @Column({ type: "varchar", nullable: false })
   image_link: string;
 
-  @Column()
+  @Column({ type: "int" })
   draft_state: number;
 
   @CreateDateColumn()

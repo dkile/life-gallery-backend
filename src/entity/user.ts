@@ -24,10 +24,10 @@ export class User {
   @Column({ type: "varchar", nullable: false })
   kakao_id: string;
 
-  @Column()
+  @Column({ type: "int" })
   user_state: number;
 
-  @OneToOne((type) => Post)
+  @OneToOne((type) => Post, { nullable: true })
   @JoinColumn({ name: "draft_post_id" })
   draft_post: Post;
 
