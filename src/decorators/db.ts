@@ -1,8 +1,8 @@
 // src/decorators/db.ts
 import fp from "fastify-plugin";
 import { createConnection, getConnectionOptions } from "typeorm";
-import { Post } from "../modules/post/entity";
-import { User } from "../modules/user/entity";
+import { Post } from "../entity/post";
+import { User } from "../entity/user";
 
 export default fp(async (fastify) => {
   try {

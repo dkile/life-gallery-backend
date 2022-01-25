@@ -8,7 +8,7 @@ import {
   OneToOne,
   JoinColumn
 } from "typeorm";
-import { Post } from "../post/entity";
+import { Post } from "./post";
 
 @Entity()
 export class User {
@@ -22,7 +22,7 @@ export class User {
   nick_name: string;
 
   @Column({ type: "varchar", nullable: false })
-  kakao_account: string;
+  kakao_id: string;
 
   @Column()
   user_state: number;
