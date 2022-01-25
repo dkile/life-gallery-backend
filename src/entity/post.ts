@@ -8,15 +8,17 @@ import {
   ManyToOne,
   JoinColumn
 } from "typeorm";
-import { Gallery } from "../gallery/entity";
+import { User } from "./user";
 
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => Gallery)
-  @JoinColumn({ name: "gallery_id" })
+  @ManyToOne((type) => User)
+  @JoinColumn({ name: "user_id" })
+  user: User;
+
   @Column({ type: "varchar", length: 40, nullable: false })
   title: string;
 
@@ -25,6 +27,9 @@ export class Post {
 
   @Column({ type: "varchar", nullable: false })
   image_link: string;
+
+  @Column({ type: "int" })
+  draft_state: number;
 
   @CreateDateColumn()
   created_at: Date;
