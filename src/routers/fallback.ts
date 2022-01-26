@@ -11,6 +11,7 @@ const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions)
 
     const requestBody: basicRequestBody = req.body;
     const recentPost = await getDraftPostByKakaoId(server, requestBody.userRequest.user.id);
+    server.log.info("recentPost is ", recentPost);
     const utterance = requestBody.userRequest.utterance;
     if (!recentPost) {
       return {
