@@ -19,16 +19,16 @@ export class Post {
   @JoinColumn({ name: "user_id" })
   user: User;
 
-  @Column({ type: "varchar", length: 40, nullable: false })
+  @Column({ type: "varchar", length: 40, nullable: true })
   title: string;
 
   @Column({ type: "varchar", length: 1000, nullable: true })
   content: string;
 
-  @Column({ type: "varchar", nullable: false })
+  @Column({ type: "varchar", nullable: true })
   image_link: string;
 
-  @Column({ type: "int" })
+  @Column({ type: "int", nullable: false })
   draft_state: number;
 
   @CreateDateColumn()

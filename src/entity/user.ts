@@ -24,7 +24,7 @@ export class User {
   @Column({ type: "varchar", nullable: false })
   kakao_id: string;
 
-  @Column({ type: "int" })
+  @Column({ type: "int", nullable: false })
   user_state: number;
 
   @OneToOne((type) => Post, { nullable: true })
