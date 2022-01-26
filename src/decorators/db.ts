@@ -7,6 +7,7 @@ import { User } from "../entity/user";
 export default fp(async (fastify) => {
   try {
     const connectionOptions = await getConnectionOptions();
+    console.log(connectionOptions);
     const connection = await createConnection(connectionOptions);
 
     fastify.decorate("db", {
