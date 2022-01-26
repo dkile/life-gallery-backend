@@ -76,8 +76,14 @@ export interface imageRequestBody {
   action: {
     id: string;
     name: string;
-    params: {};
-    detailParams: {};
+    params: { secureimage: string };
+    detailParams: {
+      secureimage: {
+        groupName: string;
+        origin: string;
+        value: string;
+      };
+    };
     clientExtra: {};
   };
   userRequest: {

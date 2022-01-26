@@ -6,6 +6,7 @@ import fp from "fastify-plugin";
 import { extractImageUrl } from "../utils/stringModify";
 import { Post } from "../entity/post";
 import { savePost } from "../service/PostService";
+import { s3UploadFromUrl } from "../utils/s3image";
 
 const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.post("/image", async (req: FastifyRequest<any>, res: FastifyReply) => {
@@ -25,10 +26,10 @@ const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) =>
       await saveUser(server, user);
     }
     const post = new Post();
-    const images = requestBody.contexts.map((context) => extractImageUrl(context.params.secureimage.value));
+    const image = extractImageUrl(requestBody.action.detailParams.secureimage.origin);
     post.user = user;
     post.title = " ";
-    post.image_link = images[0];
+    post.image_link = (await s3UploadFromUrl(server, image)) as string;
     post.draft_state = 1;
     await savePost(server, post);
 
