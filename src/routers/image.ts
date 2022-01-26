@@ -27,6 +27,8 @@ const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) =>
     }
     const post = new Post();
     const images = requestBody.contexts.map((context) => extractImageUrl(context.params.secureimage.value));
+    console.log(images);
+    console.log(images[0]);
     post.user = user;
     post.title = " ";
     post.image_link = (await s3UploadFromUrl(server, images[0])) as string;
