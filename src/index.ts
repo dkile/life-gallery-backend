@@ -8,7 +8,14 @@ import db from "./decorators/db";
 
 const PORT = process.env.PORT || "3000";
 const server: ServerType = fastify({
-  logger: { level: "info", file: "./server.log" }
+  logger: {
+    level: "info",
+    file: "./server.log",
+    prettyPrint: {
+      translateTime: "HH:MM:ss Z",
+      ignore: "pid,hostname"
+    }
+  }
 });
 
 server.register(db);

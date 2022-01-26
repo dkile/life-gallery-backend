@@ -1,6 +1,6 @@
 import { ServerType, imageRequestBody } from "../types/type";
 import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
-import { findUserByKakaoId, saveUser } from "../service/user";
+import { findUserByKakaoId, saveUser } from "../service/UserService";
 import { User } from "../entity/user";
 import fp from "fastify-plugin";
 

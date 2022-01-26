@@ -14,6 +14,6 @@ export default fp(async (fastify) => {
       post: connection.getRepository(Post)
     });
   } catch (error) {
-    console.log(error);
+    fastify.log.error(error);
   }
 });
