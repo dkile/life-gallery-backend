@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
 import { User } from "../entity/user";
-import { saveUser } from "../service/user";
+import { saveUser } from "../service/UserService";
 
 export default fp(async (server: FastifyInstance) => {
   const user = new User();

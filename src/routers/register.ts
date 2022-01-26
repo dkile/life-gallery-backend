@@ -1,6 +1,6 @@
 import { ServerType, registerRequestBody } from "../types/type";
 import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
-import { findUserByKakaoId } from "../service/user";
+import { findUserByKakaoId } from "../service/UserService";
 import fp from "fastify-plugin";
 
 const registerRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
