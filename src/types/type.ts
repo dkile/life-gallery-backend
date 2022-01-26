@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
 export type ServerType = FastifyInstance<Server, IncomingMessage, ServerResponse>;
-export interface registerRequestBody {
+export interface basicRequestBody {
   level: number;
   time: number;
   pid: number;

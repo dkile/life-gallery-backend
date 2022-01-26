@@ -1,11 +1,11 @@
-import { ServerType, registerRequestBody } from "../types/type";
+import { ServerType, basicRequestBody } from "../types/type";
 import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
 import { findUserByKakaoId } from "../service/UserService";
 import fp from "fastify-plugin";
 
 const registerRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.post("/register", async (req: FastifyRequest<any>, res: FastifyReply) => {
-    const requestBody: registerRequestBody = req.body;
+    const requestBody: basicRequestBody = req.body;
 
     server.log.info("----------------------REGISTER----------------------");
     server.log.info(requestBody);
