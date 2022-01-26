@@ -11,6 +11,15 @@ export const getDraftPostByUser = async (server: FastifyInstance, user_id: numbe
   return user?.draft_post;
 };
 
+export const getDraftPostByKakaoId = async (server: FastifyInstance, kakao_id: string) => {
+  const user = await server.db.user.find({ where: { kakao_id } });
+  if (user.length === 0) {
+    server.log.error(`No such user with kakao id: ${kakao_id}.`);
+    return undefined;
+  }
+  return user[0].draft_post;
+};
+
 export const savePost = async (server: FastifyInstance, post: Post) => {
   await server.db.post.save(post);
 };
