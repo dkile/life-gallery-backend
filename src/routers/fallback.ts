@@ -1,7 +1,7 @@
 import { basicRequestBody, ServerType } from "../types/type";
 import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
 import fp from "fastify-plugin";
-import { getDraftPostByUser, savePost } from "../service/PostService";
+import { getDraftPostByKakaoId, savePost } from "../service/PostService";
 
 const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.post("/fallback", async (req: FastifyRequest<any>, res: FastifyReply) => {
@@ -10,7 +10,7 @@ const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions)
     server.log.info("---------------------------------------------------");
 
     const requestBody: basicRequestBody = req.body;
-    const recentPost = await getDraftPostByUser(server, Number(requestBody.userRequest.user.id));
+    const recentPost = await getDraftPostByKakaoId(server, requestBody.userRequest.user.id);
     const utterance = requestBody.userRequest.utterance;
     if (!recentPost) {
       return {
