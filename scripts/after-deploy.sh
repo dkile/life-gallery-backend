@@ -14,7 +14,7 @@ LENGTH=`pm2 pid api | wc -m`
 echo $LENGTH
 if [ $LENGTH -lt 5 ] || [ $LENGTH -gt 90 ]
 then
-    npm start
+    pm2 start ecosystem.config.js
 else
-    pm2 reload api
+    pm2 reload api --update-env
 fi
