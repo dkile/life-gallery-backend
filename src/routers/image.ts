@@ -23,7 +23,6 @@ const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) =>
       user.full_name = " ";
       user.nick_name = " ";
       user.user_state = 2;
-      await saveUser(server, user);
     }
     const post = new Post();
     const image = extractImageUrl(requestBody.action.detailParams.secureimage.origin);
@@ -32,6 +31,9 @@ const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) =>
     post.image_link = (await s3UploadFromUrl(server, image)) as string;
     post.draft_state = 1;
     await savePost(server, post);
+
+    user.draft_post = post;
+    await saveUser(server, user);
 
     res.send({
       version: "2.0",
