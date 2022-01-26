@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "pm2 start -o ./console.log -i max --name api ts-node -- --files src/index.ts",
+    "start": "pm2 start -o ./console.log -i 1 --name api ts-node -- --files src/index.ts",
     "develop": "ts-node-dev --files src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
