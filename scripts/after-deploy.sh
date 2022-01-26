@@ -8,6 +8,7 @@ REPOSITORY=/home/ubuntu/life-gallery-backend
 cd $REPOSITORY
 
 npm install
+npm run build
 
 LENGTH=`pm2 pid api | wc -m`
 echo $LENGTH
