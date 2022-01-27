@@ -6,6 +6,11 @@ export const findUserByKakaoId = async (server: FastifyInstance, kakao_id: strin
   return user;
 };
 
+export const findUserById = async (server: FastifyInstance, id: number) => {
+  const user = await server.db.user.findOne(id);
+  return user;
+};
+
 export const saveUser = async (server: FastifyInstance, user: User) => {
   await server.db.user.save(user);
 };

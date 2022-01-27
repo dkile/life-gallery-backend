@@ -6,7 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from "typeorm";
 import { Post } from "./post";
 
@@ -26,6 +27,9 @@ export class User {
 
   @Column({ type: "int", nullable: false })
   user_state: number;
+
+  @OneToMany((type) => Post, (post) => post.user)
+  posts: Post[];
 
   @OneToOne((type) => Post, { nullable: true })
   @JoinColumn({ name: "draft_post_id" })

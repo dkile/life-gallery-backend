@@ -1,13 +1,26 @@
 import { FastifyInstance } from "fastify";
 import fp from "fastify-plugin";
+import { Post } from "../entity/post";
 import { User } from "../entity/user";
-import { saveUser } from "../service/UserService";
+import { savePost } from "../service/PostService";
+import { findUserById, saveUser } from "../service/UserService";
 
 export default fp(async (server: FastifyInstance) => {
-  const user = new User();
-  user.full_name = " ";
-  user.kakao_id = "sampleKakaoId";
-  user.nick_name = "빠른거북이01";
-  user.user_state = 0;
-  await saveUser(server, user);
+  const saveSamplePost = async (user_id: number) => {
+    const user = await findUserById(server, user_id);
+
+    if (user) {
+      for (let i = 0; i < 10; i++) {
+        const post = new Post();
+        post.image_link =
+          "https://life-gallery-image.s3.ap-northeast-2.amazonaws.com/1643216952604e23ff7de48b71bc0.jpg";
+        post.draft_state = 4;
+        post.title = `Sample_post ${i}`;
+        post.content = `Sample post's content ${i}`;
+        post.user = user;
+
+        await savePost(server, post);
+      }
+    }
+  };
 });
