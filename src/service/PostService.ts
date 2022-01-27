@@ -1,13 +1,25 @@
 import { FastifyInstance } from "fastify";
 import { Post } from "../entity/post";
+import { PostQueryCondition } from "../types/type";
 
-export const getPostsByUser = async (server: FastifyInstance, user_id: number) => {
-  const posts = await server.db.post.find({ where: { user: user_id } });
+export const getAllPostByUserId = async (server: FastifyInstance, user_id: number, joinUser?: boolean) => {
+  const posts = await server.db.post.find({
+    where: { user: user_id },
+    relations: joinUser ? ["user"] : undefined
+  });
+  return posts;
+};
+
+export const getAllPostByCondition = async (server: FastifyInstance, condition?: PostQueryCondition) => {
+  const posts = await server.db.post.find({
+    where: { user: { ...condition } },
+    relations: ["user"]
+  });
   return posts;
 };
 
 export const getDraftPostByUser = async (server: FastifyInstance, user_id: number) => {
-  const user = await server.db.user.findOne(user_id);
+  const user = await server.db.user.findOne(user_id, { relations: ["draft_post"] });
   return user?.draft_post;
 };
 

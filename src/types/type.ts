@@ -2,6 +2,13 @@ import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
 export type ServerType = FastifyInstance<Server, IncomingMessage, ServerResponse>;
+
+export interface PostQueryCondition {
+  user_id?: number;
+  kakao_id?: string;
+  nick_name?: string;
+}
+
 export interface basicRequestBody {
   level: number;
   time: number;
