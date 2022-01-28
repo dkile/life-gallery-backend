@@ -6,6 +6,22 @@ export const getAllUsers = async (server: FastifyInstance) => {
   return users;
 };
 
+export const getUserWithRecentPosts = async (
+  server: FastifyInstance,
+  user_id: number,
+  post_number: number
+) => {
+  const posts = await server.db.post.find({
+    where: { user: user_id },
+    relations: ["user"],
+    order: { created_at: "DESC" },
+    take: 3
+  });
+  const user = await server.db.user.findOne(user_id);
+
+  return { ...user, recent_post_images: posts.map((post) => post.image_link) };
+};
+
 export const findUserByKakaoId = async (server: FastifyInstance, kakao_id: string) => {
   const user = await server.db.user.findOne({ kakao_id });
   return user;
