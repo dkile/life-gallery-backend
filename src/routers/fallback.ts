@@ -87,9 +87,14 @@ const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions)
                 thumbnail: recentPost.image_link,
                 buttons: [
                   {
-                    label: "쟉품 확인하러 가기",
+                    label: "작품 확인하러 가기",
                     action: "webLink",
                     webLinkUrl: `https://life-gallery.netlify.app/${user.id}`
+                  },
+                  {
+                    label: "새로운 작품 등록하기",
+                    action: "message",
+                    messageText: "작품 등록"
                   }
                 ]
               }
