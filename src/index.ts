@@ -26,9 +26,7 @@ server.register(db);
 server.register(registerRouter);
 server.register(imageRouter);
 server.register(fallbackRouter);
-server.register(userRouter, {
-  prefix: "/users"
-});
+server.register(userRouter);
 
 server.listen(+PORT, "0.0.0.0", (err) => {
   if (err) throw err;

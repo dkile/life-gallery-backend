@@ -2,6 +2,8 @@ import { basicRequestBody, ServerType } from "../types/type";
 import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
 import fp from "fastify-plugin";
 import { getDraftPostByKakaoId, savePost } from "../service/PostService";
+import { findUserByKakaoId } from "../service/UserService";
+import { User } from "../entity/user";
 
 const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.post("/fallback", async (req: FastifyRequest<any>, res: FastifyReply) => {
@@ -70,6 +72,7 @@ const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions)
     } else if (postState === 3) {
       recentPost.draft_state = 4;
       await savePost(server, recentPost);
+      const user = (await findUserByKakaoId(server, requestBody.userRequest.user.id)) as User;
       res.send({
         version: "2.0",
         template: {
@@ -86,8 +89,7 @@ const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions)
                   {
                     label: "쟉품 확인하러 가기",
                     action: "webLink",
-                    webLinkUrl:
-                      "https://www.notion.so/d19df8d8d47247c19f1b4fe8bf03dd03?v=7ac04e7d5a0d45ed993b42f3284ae4a8"
+                    webLinkUrl: `https://life-gallery.netlify.app/${user.id}`
                   }
                 ]
               }
