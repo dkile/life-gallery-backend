@@ -1,18 +1,27 @@
 import { FastifyPluginOptions, FastifyRequest, FastifyReply } from "fastify";
 import { ServerType } from "../types/type";
 import fp from "fastify-plugin";
-import { findUserById, getAllUsers } from "../service/UserService";
+import { getAllUsers, getUserWithRecentPosts } from "../service/UserService";
 import { getAllPostByUserId, getPostById } from "../service/PostService";
 import { Post } from "../entity/post";
 import { User } from "../entity/user";
 
-const customizeUser = (user: User) => ({
-  id: user?.id,
-  full_name: user?.full_name,
-  nick_name: user?.nick_name,
-  created_at: user?.created_at,
-  updated_at: user?.updated_at
-});
+interface UserWithImage extends User {
+  recent_post_images?: string[];
+}
+
+const customizeUser = (user: UserWithImage) => {
+  const customizedUser = {
+    id: user?.id,
+    full_name: user?.full_name,
+    nick_name: user?.nick_name,
+    created_at: user?.created_at,
+    updated_at: user?.updated_at
+  };
+  return user.recent_post_images
+    ? { ...customizedUser, recenet_post_images: user.recent_post_images }
+    : customizedUser;
+};
 
 const customizePost = (post: Post) => ({
   id: post.id,
@@ -26,9 +35,7 @@ const customizePost = (post: Post) => ({
 const userRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.get("/users", async (req: FastifyRequest<any>, res: FastifyReply) => {
     try {
-      console.log("-------------------users finding------------------");
       const users = await getAllUsers(server);
-      console.log(users);
       if (!users) {
         console.log("no users");
         res.send("no users");
@@ -45,9 +52,8 @@ const userRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => 
 
   server.get("/users/:userId", async (req: FastifyRequest<any>, res: FastifyReply) => {
     try {
-      console.log("-------------------user finding------------------");
       const id = Number(req.params.userId);
-      const user = (await findUserById(server, id)) as User;
+      const user = (await getUserWithRecentPosts(server, id, 3)) as User;
       if (!user) {
         server.log.info("no user");
         res.send("no user");

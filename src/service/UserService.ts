@@ -15,7 +15,7 @@ export const getUserWithRecentPosts = async (
     where: { user: user_id },
     relations: ["user"],
     order: { created_at: "DESC" },
-    take: 3
+    take: post_number
   });
   const user = await server.db.user.findOne(user_id);
 
