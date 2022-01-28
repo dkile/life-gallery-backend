@@ -36,8 +36,8 @@ export class User {
   draft_post: Post;
 
   @CreateDateColumn()
-  created_at: string;
+  created_at: Date;
 
   @UpdateDateColumn()
-  updated_at: string;
+  updated_at: Date;
 }
