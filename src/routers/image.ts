@@ -23,6 +23,7 @@ const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) =>
       user.full_name = " ";
       user.nick_name = " ";
       user.user_state = 2;
+      await saveUser(server, user);
     }
     const post = new Post();
     const image = extractImageUrl(requestBody.action.detailParams.secureimage.origin);
