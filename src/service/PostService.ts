@@ -32,6 +32,11 @@ export const getDraftPostByKakaoId = async (server: FastifyInstance, kakao_id: s
   return user[0].draft_post;
 };
 
+export const getPostById = async (server: FastifyInstance, post_id: number) => {
+  const post = await server.db.post.findOne(post_id);
+  return post;
+};
+
 export const savePost = async (server: FastifyInstance, post: Post) => {
   await server.db.post.save(post);
 };
