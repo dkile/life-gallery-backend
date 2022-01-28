@@ -6,20 +6,13 @@ import { getAllPostByUserId, getPostById } from "../service/PostService";
 import { Post } from "../entity/post";
 import { User } from "../entity/user";
 
-const customizeUser = (user: User) => {
-  const postIds = user?.posts.map((post) => post.id);
-  const draftPostId = user?.draft_post.id;
-
-  return {
-    id: user?.id,
-    full_name: user?.full_name,
-    nick_name: user?.nick_name,
-    posts: postIds,
-    draft_post: draftPostId,
-    created_at: user?.created_at,
-    updated_at: user?.updated_at
-  };
-};
+const customizeUser = (user: User) => ({
+  id: user?.id,
+  full_name: user?.full_name,
+  nick_name: user?.nick_name,
+  created_at: user?.created_at,
+  updated_at: user?.updated_at
+});
 
 const customizePost = (post: Post) => ({
   id: post.id,
@@ -31,11 +24,13 @@ const customizePost = (post: Post) => ({
 });
 
 const userRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
-  server.get("/", async (req: FastifyRequest<any>, res: FastifyReply) => {
+  server.get("/users", async (req: FastifyRequest<any>, res: FastifyReply) => {
     try {
+      console.log("-------------------users finding------------------");
       const users = await getAllUsers(server);
+      console.log(users);
       if (!users) {
-        server.log.info("no users");
+        console.log("no users");
         res.send("no users");
       }
       const customizedUsers = users.map((user) => customizeUser(user));
@@ -44,12 +39,13 @@ const userRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => 
         users: customizedUsers
       });
     } catch (err) {
-      server.log.info(err);
+      console.log(err);
     }
   });
 
-  server.get("/:userId", async (req: FastifyRequest<any>, res: FastifyReply) => {
+  server.get("/users/:userId", async (req: FastifyRequest<any>, res: FastifyReply) => {
     try {
+      console.log("-------------------user finding------------------");
       const id = Number(req.params.userId);
       const user = (await findUserById(server, id)) as User;
       if (!user) {
@@ -63,7 +59,7 @@ const userRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => 
     }
   });
 
-  server.get("/:userId/posts", async (req: FastifyRequest<any>, res: FastifyReply) => {
+  server.get("/users/:userId/posts", async (req: FastifyRequest<any>, res: FastifyReply) => {
     try {
       const id = Number(req.params.userId);
       const posts = await getAllPostByUserId(server, id);
@@ -80,7 +76,7 @@ const userRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => 
     }
   });
 
-  server.get("/:userId/posts/:postId", async (req: FastifyRequest<any>, res: FastifyReply) => {
+  server.get("/users/:userId/posts/:postId", async (req: FastifyRequest<any>, res: FastifyReply) => {
     try {
       const postId = Number(req.params.postId);
       const post = (await getPostById(server, postId)) as Post;
