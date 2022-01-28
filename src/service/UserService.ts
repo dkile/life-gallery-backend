@@ -1,6 +1,11 @@
 import { FastifyInstance } from "fastify";
 import { User } from "../entity/user";
 
+export const getAllUsers = async (server: FastifyInstance) => {
+  const users = await server.db.user.find();
+  return users;
+};
+
 export const findUserByKakaoId = async (server: FastifyInstance, kakao_id: string) => {
   const user = await server.db.user.findOne({ kakao_id });
   return user;
