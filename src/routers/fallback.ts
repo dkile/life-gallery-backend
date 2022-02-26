@@ -3,14 +3,9 @@ import { FastifyRequest, FastifyReply, FastifyPluginOptions } from "fastify";
 import fp from "fastify-plugin";
 import { getDraftPostByKakaoId, savePost } from "../service/PostService";
 import { findUserByKakaoId } from "../service/UserService";
-import { User } from "../entity/user";
 
 const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) => {
   server.post("/fallback", async (req: FastifyRequest<any>, res: FastifyReply) => {
-    server.log.info("---------------------------------------------------");
-    server.log.info(req.body);
-    server.log.info("---------------------------------------------------");
-
     const requestBody: basicRequestBody = req.body;
     const recentPost = await getDraftPostByKakaoId(server, requestBody.userRequest.user.id);
     const utterance = requestBody.userRequest.utterance;
@@ -72,7 +67,10 @@ const fallbackRouter = fp(async (server: ServerType, opts: FastifyPluginOptions)
     } else if (postState === 3) {
       recentPost.draft_state = 4;
       await savePost(server, recentPost);
-      const user = (await findUserByKakaoId(server, requestBody.userRequest.user.id)) as User;
+      const user = await findUserByKakaoId(server, requestBody.userRequest.user.id);
+      if (!user) {
+        throw new Error("find user by kakao Id fail");
+      }
       res.send({
         version: "2.0",
         template: {

@@ -12,10 +12,6 @@ const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) =>
   server.post("/image", async (req: FastifyRequest<any>, res: FastifyReply) => {
     const requestBody: imageRequestBody = req.body;
 
-    server.log.info("----------------------IMAGE------------------------");
-    server.log.info(requestBody);
-    server.log.info("---------------------------------------------------");
-
     let user = await findUserByKakaoId(server, requestBody.userRequest.user.id);
     if (!user) {
       user = new User();
@@ -29,7 +25,11 @@ const imageRouter = fp(async (server: ServerType, opts: FastifyPluginOptions) =>
     const image = extractImageUrl(requestBody.action.detailParams.secureimage.origin);
     post.user = user;
     post.title = " ";
-    post.image_link = (await s3UploadFromUrl(server, image)) as string;
+    const s3ImageUrl = await s3UploadFromUrl(server, image);
+    if (!s3ImageUrl) {
+      throw new Error("s3 upload fail");
+    }
+    post.image_link = s3ImageUrl;
     post.draft_state = 1;
     await savePost(server, post);
 
