@@ -61,25 +61,7 @@ export interface basicRequestBody {
   contexts: [];
 }
 
-export interface imageRequestBody {
-  level: number;
-  time: number;
-  pid: number;
-  hostname: string;
-  bot: {
-    id: string;
-    name: string;
-  };
-  intent: {
-    id: string;
-    name: string;
-    extra: {
-      reason: {
-        code: number;
-        message: string;
-      };
-    };
-  };
+export interface imageRequestBody extends Omit<basicRequestBody, "contexts"> {
   action: {
     id: string;
     name: string;
@@ -92,29 +74,6 @@ export interface imageRequestBody {
       };
     };
     clientExtra: {};
-  };
-  userRequest: {
-    block: {
-      id: string;
-      name: string;
-    };
-    user: {
-      id: string;
-      type: string;
-      properties: {
-        botUserKey: string;
-        isFriend: boolean;
-        plusfriendUserKey: string;
-        bot_user_key: string;
-        plusfriend_user_key: string;
-      };
-    };
-    utterance: string;
-    params: {
-      surface: string;
-    };
-    lang: string;
-    timezone: string;
   };
   contexts: [
     {
