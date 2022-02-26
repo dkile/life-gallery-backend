@@ -7,10 +7,6 @@ const registerRouter = fp(async (server: ServerType, opts: FastifyPluginOptions)
   server.post("/register", async (req: FastifyRequest<any>, res: FastifyReply) => {
     const requestBody: basicRequestBody = req.body;
 
-    server.log.info("----------------------REGISTER----------------------");
-    server.log.info(requestBody);
-    server.log.info("---------------------------------------------------");
-
     const user = await findUserByKakaoId(server, requestBody.userRequest.user.id);
     if (!user) {
       res.send({
